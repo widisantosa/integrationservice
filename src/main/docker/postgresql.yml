@@ -1,0 +1,11 @@
+version: '2'
+services:
+    integrationservice-postgresql:
+        image: postgres:10.4
+        # volumes:
+        #     - ~/volumes/jhipster/IntegrationService/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=IntegrationService
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

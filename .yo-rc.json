@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "applicationType": "microservice",
+    "gitCompany": "",
+    "baseName": "IntegrationService",
+    "packageName": "com.investasikita.integration",
+    "packageFolder": "com/investasikita/integration",
+    "serverPort": 8075,
+    "serviceDiscoveryType": "eureka",
+    "authenticationType": "jwt",
+    "uaaBaseName": "../uaa",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "enableSwaggerCodegen": "true",
+    "messageBroker": false,
+    "buildTool": "maven",
+    "useSass": false,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "enableTranslation": false,
+    "nativeLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "clientFramework": "angularX",
+    "jhiPrefix": "jhi",
+    "jhipsterVersion": "5.8.1",
+    "jwtSecretKey": "YTQ5ZDM0YTZkYzIyNjhhOTY2ZTRhNTAzM2RiNjk2MTNlMmM5NTNjNDNmZGIyMTFkNDkxNGRmNjA1NmIyMmY0NWYwYjQwN2M2YjI3MTU0NWIzNzYzYjA0YzNjZDM3NTRhMmRjYjE0ZTZkMWEyN2I1MGVkYWZjNGViNDZlYjBmZDQ=",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "skipClient": true,
+    "skipUserManagement": true
+  },
+  "git-provider": "GitHub",
+  "git-company": "widisantosa",
+  "repository-name": "integrationservice"
+}
