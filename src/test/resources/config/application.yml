@@ -11,6 +11,7 @@
 # Standard Spring Boot properties.
 # Full reference is available at:
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# jdbc:h2:mem:IntegrationService;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
 # ===================================================================
 
 eureka:
@@ -27,10 +28,10 @@ spring:
         type: simple
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:IntegrationService;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:postgresql://localhost:5432/IntegrationService 
         name:
-        username:
-        password:
+        username:postgres
+        password:postgres
         hikari:
             auto-commit: false
     jpa:

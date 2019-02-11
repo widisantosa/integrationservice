@@ -1,29 +1,35 @@
 package com.investasikita.integration;
 
-import com.investasikita.integration.config.ApplicationProperties;
-import com.investasikita.integration.config.DefaultProfileUtil;
-
-import io.github.jhipster.config.JHipsterConstants;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.core.env.Environment;
-
-import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.core.env.Environment;
+
+import com.investasikita.integration.config.ApplicationProperties;
+import com.investasikita.integration.config.DefaultProfileUtil;
+import com.investasikita.integration.service.MutualFundNAVService;
+
+import io.github.jhipster.config.JHipsterConstants;
+
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
 @EnableDiscoveryClient
+@EnableFeignClients
 public class IntegrationServiceApp {
 
     private static final Logger log = LoggerFactory.getLogger(IntegrationServiceApp.class);
@@ -59,13 +65,25 @@ public class IntegrationServiceApp {
      *
      * @param args the command line arguments
      */
+    @Autowired
+    private static MutualFundNAVService mutualFundNAVService;
+
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(IntegrationServiceApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
+        //mutualFundNAVService = new MutualFundNAVService();
+        //try {
+		//	mutualFundNAVService.getAllLastNAV();
+		//} catch (IOException e) {
+			// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		//}
+        
     }
 
+    
     private static void logApplicationStartup(Environment env) {
         String protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
