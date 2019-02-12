@@ -13,58 +13,37 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.investasikita.integration.client.interfaces.ProductServiceProxy;
+import com.investasikita.integration.client.interfaces.TransactionServiceProxy;
+import com.investasikita.integration.client.model.MutualFundNAV;
 import com.investasikita.integration.service.MutualFundNAVService;
 import com.investasikita.integration.service.dto.MutualFundNAVDTO;
 import com.investasikita.integration.service.util.JSONReaderUtil;
 
 @Service
 @Transactional
-//@AuthorizedUserFeignClient(name = "mftransactionservice")
 public class MutualFundNAVServiceImpl implements MutualFundNAVService {
 	private final Logger log = LoggerFactory.getLogger(MutualFundNAVServiceImpl.class);
 
-	private static final String PRODUCT_SERVICE_NAV_API = "http://localhost:8084/mutual-fund-navs/getlastnavbycode/";
-	private static final String TRANSACTION_SERVICE_NAV_API = "http://localhost:8085/mutual-fund-navs/getlastnavbycode/";
+	static ProductServiceProxy productService;
+	static TransactionServiceProxy transactionService;
 
-	// private final MutualFundNAVService mutualFundNAVService;
-	// public MutualFundNAVServiceImpl(MutualFundNAVService mutualFundNAVService) {
-	// this.mutualFundNAVService = mutualFundNAVService;
-	// }
+	public MutualFundNAVServiceImpl(ProductServiceProxy productService, TransactionServiceProxy transactionService) {
+		this.productService = productService;
+		this.transactionService = transactionService;
+	}
 
 	@Override
 	public String getAllLastNAV() throws IOException {
 		try {
-			HttpClient client = new DefaultHttpClient();
-			JSONObject json = JSONReaderUtil.readJSONUrl(PRODUCT_SERVICE_NAV_API);
-			/*
-			 * MutualFundNAVDTO obj = new MutualFundNAVDTO(); obj.setId(json.getLong("id"));
-			 * obj.setEffectiveDate((Instant) (json.get("effective_date")));
-			 * obj.setValue(new BigDecimal(json.getDouble("jhi_value")));
-			 * obj.setCreatedAt((Instant) json.get("created_at"));
-			 * obj.setCreatedBy(json.getString("created_by")); obj.setUpdatedAt((Instant)
-			 * json.get("updated_at")); obj.setUpdatedBy(json.getString("updated_by"));
-			 * obj.setStatus(json.getString("status"));
-			 * obj.setMutualFundCode(json.getString("mutual_fund_code"));
-			 */
-			HttpPost post = new HttpPost(TRANSACTION_SERVICE_NAV_API);
-			JSONObject jsonObj = new JSONObject();
-			jsonObj.put("id", json.getLong("id"));
-			jsonObj.put("effective_date", json.get("effective_date"));
-			jsonObj.put("jhi_value", json.get("jhi_value"));
-			jsonObj.put("created_at", json.get("created_at"));
-			jsonObj.put("created_by", json.get("created_by"));
-			jsonObj.put("updated_at", json.get("updated_at"));
-			jsonObj.put("updated_by", json.get("updated_by"));
-			jsonObj.put("status", json.get("status"));
-			jsonObj.put("mutual_fund_code", json.get("mutual_fund_code"));
-			StringEntity se = new StringEntity(jsonObj.toString());
-			// StringEntity input = new StringEntity('product');
-			post.setEntity(se);
-			HttpResponse response = client.execute(post);
+			MutualFundNAVDTO mfn = new MutualFundNAVDTO();
+			mfn = productService.findLastMutualFundNAVByMutualFundCode();
+			log.debug("Data NAV : " + mfn.getValue());
+ 			transactionService.createMutualFundNAV(mfn);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.getMessage().toString();
 		}
 
 		return null;
