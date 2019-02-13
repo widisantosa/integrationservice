@@ -7,8 +7,7 @@ import com.investasikita.integration.service.dto.MutualFundNAVDTO;
 
 public interface MutualFundNAVService {
 
-	public String getAllLastNAV() throws IOException;
+	public void getAllLastNAV() throws IOException;
 
-	MutualFundNAVDTO save(MutualFundNAVDTO mutualFundNAVDTO);
 
 }
