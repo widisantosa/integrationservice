@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.investasikita.integration.client.AuthorizedUserFeignClient;
 import com.investasikita.integration.config.FeignConfiguration;
+import com.investasikita.integration.service.dto.InvestmentMutualFundDTO;
 import com.investasikita.integration.service.dto.MutualFundNAVDTO;
 import com.investasikita.integration.web.rest.po.PortfolioPO;
 
@@ -17,5 +18,12 @@ public interface TransactionServiceProxy {
 
     @RequestMapping(value = "/api/portfolio",method = RequestMethod.POST)
     ResponseEntity<PortfolioPO> createPortfolios(@RequestBody PortfolioPO portfolioPO);
- 
+    
+    @RequestMapping(value = "/api/mutual-fund-navs/delete",method = RequestMethod.POST)
+    void delete(); 
+
+    @RequestMapping(value = "/api/investment-mutual-fund",method = RequestMethod.POST)
+    ResponseEntity<InvestmentMutualFundDTO> createInvestmentMutualFund(@RequestBody InvestmentMutualFundDTO investmentMutualFundDTO);
+
+    
 }

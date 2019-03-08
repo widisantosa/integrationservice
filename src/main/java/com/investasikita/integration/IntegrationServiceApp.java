@@ -38,10 +38,11 @@ public class IntegrationServiceApp {
 	private final Environment env;
 
 	private static MutualFundNAVService mutualFundNAVService;
-	
+
 	private static PortfolioService portfolioService;
 
-	public IntegrationServiceApp(Environment env, MutualFundNAVService mutualFundNAVService, PortfolioService portfolioService) {
+	public IntegrationServiceApp(Environment env, MutualFundNAVService mutualFundNAVService,
+			PortfolioService portfolioService) {
 		this.env = env;
 		this.mutualFundNAVService = mutualFundNAVService;
 		this.portfolioService = portfolioService;
@@ -76,7 +77,7 @@ public class IntegrationServiceApp {
 	 * Main method, used to run the application.
 	 *
 	 * @param args the command line arguments
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 
 	public static void main(String[] args) throws IOException {
@@ -84,9 +85,9 @@ public class IntegrationServiceApp {
 		DefaultProfileUtil.addDefaultProfile(app);
 		Environment env = app.run(args).getEnvironment();
 		logApplicationStartup(env);
-		// mutualFundNAVService.getAllLastNAV();
-		portfolioService.savePortfolio();
-
+		//mutualFundNAVService.getAllLastNAV();
+		//	portfolioService.savePortfolio();
+		mutualFundNAVService.getAllInventmentMutualFund();
 	}
 
 	private static void logApplicationStartup(Environment env) {

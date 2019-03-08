@@ -9,5 +9,5 @@ public interface MutualFundNAVService {
 
 	public void getAllLastNAV() throws IOException;
 
-
-}
+	public void getAllInventmentMutualFund() throws IOException;
+ }

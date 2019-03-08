@@ -24,7 +24,7 @@ eureka:
         prefer-ip-address: true
     client:
         service-url:
-           #defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+           #defaultZone: http://admin:${jhipster.registry.password}@192.168.2.150:8761/eureka/
            defaultZone: http://admin:${jhipster.registry.password}@ikregistry.herokuapp.com/eureka/
 
 spring:
@@ -44,7 +44,7 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/IntegrationService
+        url: jdbc:postgresql://192.168.2.150:5432/IntegrationService
         username: postgres
         password: postgres
         hikari:
